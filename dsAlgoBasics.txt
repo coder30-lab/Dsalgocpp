@@ -1,0 +1,947 @@
+//BinarySearch Function using Divide and conqure
+#include<stdio.h>
+#include<iostream>
+using namespace std;
+int binarySearch(int arr[],int r, int key)
+{
+	int left=0;
+	int right=r-1;
+    while (left <= right)
+    {
+        int m = (left + right)/2;
+
+        // Check if x is present at mid
+        if (arr[m] == key)
+            return m;
+
+        // If x greater, ignore left half
+        if (arr[m] < key)
+            left= m + 1;
+
+        // If x is smaller, ignore right half
+        else
+            right = m - 1;
+    }
+
+    // if we reach here, then element was
+    // not present
+    return -1;
+}
+
+int main(void)
+{
+    int n;
+    cin >> n;
+    int i;
+    int arr[n];
+    for (i = 0; i < n; i++)
+        cin >> arr[i];
+
+    int num;
+    cin >> num;
+    cout<<binarySearch(arr,n, num);
+    // (result == -1)? printf("%d", -1)
+    //         : printf("%d",result);
+    return 0;
+}
+
+
+//Binar Search STL Function#include<iostream>
+#include<algorithm>
+using namespace std;
+int main(){
+    
+    int a[]={10,20,40,40,40,40,40,50};
+    int n=sizeof(a)/sizeof(int);
+    int key;
+    // cout<<"Enter key";
+    // cin>>key;
+    // //binary_search returns the boolean value
+    // bool present=binary_search(a,a+n,key);
+    // if(present){
+    //     cout<<"Prsent";
+
+    // }else{
+    //     cout<<"Not Present!";
+    // }
+    // lower bound function returns addres of element
+    auto lb  =lower_bound(a,a+n,40);
+    cout<<"Lower Bound of 40 is"<<(lb-a)<<endl;
+
+    auto ub  =upper_bound(a,a+n,40);
+    cout<<"Upper Bound of 40 is"<<(ub-a)<<endl;
+    cout<<"Occurance of 40 in array is"<<(ub-lb);
+
+    return 0;
+
+}
+//help_rahul or serch key in rotated  sorted array 
+//using binary Search
+//when rotated sorted array and find using binar search
+//            4 5 1 2 3
+#include<iostream>
+using namespace std;
+ int find_key(int a[],int n,int key){
+    int ans=-1;
+    int s=0;
+    int e=n-1;
+    while(s<=e){
+        int mid=(s+e)/2;
+    //special key    
+        if(a[mid]==key){
+            return mid;
+            
+        }4 5 1 2 3
+        else if(a[s]<=a[mid]){
+            //2 case->element lies on the left 
+            //or the right of the mid
+            if(key>= a[mid]){
+                e=mid-1;
+            }
+            else{
+                s=mid+1;
+            }
+        }
+        else{
+            if(key>a[mid] and key<=a[e]){
+                s=mid+1;
+            }
+            else{
+                e=mid-1;
+            }
+        }
+
+            }//End of while loop
+    return -1;
+ }
+ int main(){
+     int a[100];
+     int n,key;
+     cin>>n;
+     for(int i=0; i<n; i++){
+         cin>>a[i];
+     }
+     cin>>key;
+     cout<<"Element found at index: "<<find_key(a,n,key)<<endl;
+ }
+
+
+
+//Find first occurance of a number in and sorted array using BinarySearch 
+#include<iostream>
+using namespace std;
+ int firstOccurance(int a[],int n,int key){
+     int ans=-1;
+    int s=0;
+    int e=n-1;
+    while(s<=e){
+        int mid=(s+e)/2;
+        
+        if(a[mid]==key){
+            ans=mid;
+            e=mid-1;
+        }
+        else if(key>a[mid]){
+            s=mid+1;
+        }
+        else if(key<a[mid]){
+            e=mid-1;
+        }
+    }//End of while loop
+    return ans;
+ }
+ int main(){
+     int a[100];
+     int n,key;
+     cin>>n;
+     for(int i=0; i<n; i++){
+         cin>>a[i];
+     }
+     cin>>key;
+     cout<<"First Occurance of digit is"<<firstOccurance(a,n,key)<<endl;
+ }
+
+
+//Leaner Search
+
+#include <iostream>
+
+using namespace std;
+
+
+int main()
+{
+    int array[1000];
+    int n,key;
+    cout<<" Enter number of Element  you want in array and Input Element";
+    cin>>n;
+    
+
+    for(int i=0; i<n; i++){
+        cin>>array[i];
+    }
+    
+    cout<<"Enter Key you want to Search";
+    cin>>key;
+    
+    int i;
+    for(i=0; i<n; i++){
+        if(array[i]==key){
+        cout<<key<<" is present at index  "<<i<<endl;
+        break;
+        }
+    }    
+    if(i==n){
+        cout<<key<<" is not present i array";
+    }
+
+    return 0;
+}
+//Find maximum number and minimum number from array#include<iostream>
+#include<climits>
+using namespace std;
+int main(){
+
+int n,key;
+cout<<"input n for size of array";
+cin>>n;
+int arr[100];
+for(int i=0; i<n; i++){
+    cin>>arr[i];
+
+}
+int largest=INT_MIN;
+int smallest=INT_MAX;
+ for(int i=0; i<n; i++){
+     if(arr[i]>largest){
+         largest=arr[i];
+     }
+     if(arr[i]<smallest){
+         smallest=arr[i];
+     }
+ }
+ cout<<largest<<" "<<smallest;
+
+    return 0;
+}
+
+
+// most efficient solution-Find sub Array having Maxium  sum using kadane's algorithm
+
+#include<iostream>
+using namespace std;
+
+int main(){
+ 
+int arr[100];
+int n;
+int cs=0;
+int ms=0;
+cout<<"entetr n";
+cin>>n;
+    for(int i=0;i<n; i++){
+        cin>>arr[i]; 
+    }
+//kadane's algorithm for maximum sum of subarray
+for(int i=0;i<n; i++){
+   cs+=arr[i];
+   if(cs<0){
+    cs=0;
+   }
+   ms=max(cs,ms);
+   }
+
+//printing maximum sum
+cout<<endl<<"maxsum :"<<ms<<endl;
+
+return 0;
+}
+
+
+//max sum of subarray and printing element also
+
+//find sum of subset and  MAXIMUM sumS
+#include<iostream>
+using namespace std;
+
+  void  subArraySum(int a[],int n){
+      int currentsum=0;
+      int maxsum=0;
+      int left=0;
+      int right=0;
+
+     for(int i=0; i<n; i++){
+         for(int j=i;j<n;j++){
+             sum=0;
+             for(int k=i; k<=j; k++){
+                 cout<<a[k]<<endl; //for printing  generated  sub array
+                 sum +=a[k];
+                //  left=i;
+                //  right=j;
+                //  for(int res=left; res<=right; res++ ){
+                //      cout<<a[res]<<" , ";
+                //  }
+                 
+                 cout<sum;
+             }
+             cout<<endl;
+            
+          
+         }
+         
+     }
+        }
+    
+
+  int main(){
+
+      // int arr[]={1,2,3};
+    int arr[]={1,2,3};
+     
+    int n=sizeof(arr)/sizeof(arr[0]);
+    cout<<"sum  of subarray : "<<endl;
+    subArraySum(arr,n);
+      return 0;
+  }
+
+//  Selection sort
+#include<iostream>
+using namespace std;
+
+void selection_Sort(int a[],int n){
+    int i,j,min_index;
+/* traverse  to n-1 because last
+index is already sorted after
+all sorted elementfind min index*/ 
+
+    for(i=0;i<n-1;i++){
+        min_index=i;
+        for(j=i; j<=n-1; j++){
+            if(a[j]<a[min_index]){
+                min_index=j;
+            }
+        }
+        //Swapping min value with  1st index
+        swap(a[i],a[min_index]);
+    }
+}
+
+
+int main(){
+
+        int n;
+        int arr[1000];
+        cout<<"Enter  no of element in array :";
+        cin>>n;
+        // Input Element in array
+        for(int i=0; i<n; i++){
+            cin>>arr[i];
+        }
+        selection_Sort(arr, n);
+        cout<<"after sorting";
+        for(int i=0; i<n; i++){
+            cout<<arr[i]<<" ,";
+        }
+    return 0;
+}
+
+
+
+  //Inbuilt sort method of cpp STL
+  #include<iostream>
+#include<algorithm>
+using namespace std;
+ bool compare(int a, int b){
+     return a>b ;
+ }
+int main(){
+    int arr[1000];
+    int n;
+    cout<<"Enter no of element in array";
+    cin>>n;
+    for(int i=0; i<n; i++){
+        cin>>arr[i];
+    }
+    // sorting array using inbuilt sort method
+    sort(arr,arr+n,compare);
+
+for(int i=0;i<n; i++){
+    cout<<arr[i]<<" , ";
+
+}
+return 0;
+
+}
+
+
+//Bubble sort#include<iostream>
+using namespace std;
+//Bubble sort
+void bubble_Sort(int a[],int n){
+//N-1 largest number to the end
+
+for(int itr=1; itr<=n-1; itr++){
+    for(int j=0; j<=(n-1-itr); j++){
+        if(a[j]>a[j+1]){
+            swap(a[j],a[j+1]);
+        }
+    }
+}
+
+}
+int main(){
+
+        int n;
+        int arr[1000];
+        cout<<"Enter  no of element in array :";
+        cin>>n;
+        // Input Element in array
+        for(int i=0; i<n; i++){
+            cin>>arr[i];
+        }
+        bubble_Sort(arr, n);
+        cout<<"after sorting";
+        for(int i=0; i<n; i++){
+            cout<<arr[i]<<" ,";
+        }
+    return 0;
+}
+
+
+
+//bubble_sort using compartor
+
+#include<iostream>
+using namespace std;
+bool compare(int a,int b){
+    return a<b;
+}
+
+//Bubble sort
+void bubble_Sort(int a[],int n,bool(&cmp)(int a,int b)){
+//N-1 largest number to the end
+
+for(int itr=1; itr<=n-1; itr++){
+    for(int j=0; j<=(n-1-itr); j++){
+        if(cmp(a[j],a[j+1])){
+            swap(a[j],a[j+1]);
+        }
+    }
+}
+
+}
+int main(){
+
+        int n=5;
+        int arr[1000];
+        // Input Element in array
+        for(int i=0; i<n; i++){
+            cin>>arr[i];
+        }
+        bubble_Sort(arr, n,compare);
+        cout<<"after sorting";
+        for(int i=0; i<n; i++){
+            cout<<arr[i]<<" ,";
+        }
+    return 0;
+}
+
+//max frequency of element in an array
+#include<iostream>
+#include<cstring>
+using namespace std;
+char maxFreq(char *str){
+    int len=strlen(str);
+    cout<<len;
+    char result;
+    int max=0;
+    int count[256];
+    for(int i=0; i<len; i++){
+        count[str[i]]++;
+        cout<<count[str[i]]<<"count[str[i]] "<<" ";
+        if(max>count[str[i]]);
+        {
+            max=count[str[i]];
+            result=str[i];
+        }
+    }
+    return result;
+}
+int main(){
+    char str[1000];
+    cin.getline(str,1000);
+    cout<<maxFreq(str);
+    return 0;
+}
+
+//Money Change problem 
+//given a amount find change for that amount from given rupees or notes
+
+#include<iostream>
+#include<algorithm>
+using namespace std;
+bool compare(int a,int b){
+    return a<b;
+}
+int main(){
+
+int coins[]={1,2,5,10,20,50,100,200,500,2000};
+int money=168;
+int n=sizeof(coins)/sizeof(int);
+while(money>0){
+    int lb=lower_bound(coins,coins+n,money,compare)-coins-1;
+   // cout<<coins[lb]<<endl;
+   int m=coins[lb];
+    cout<<m<<" ";
+    money=money-coins[lb];
+}
+    return 0;
+}
+
+//Piyush and magical park problem
+//calculate strength to find piyush can come out of the park or not
+
+#include<iostream>
+using namespace std;
+
+void magical_park(char park[][100], int m, int n, int k, int s){
+    bool success=true;
+ for(int i=0; i<m; i++){
+     for(int j=0; j<n; j++){
+         char ch=park[i][j];
+            if(s<k){
+                success=false;
+                break;
+            }
+            else if(ch=='.'){
+                s -=2;
+            }
+            else if(ch=='*'){
+                s +=5;
+            }
+            else{
+                break;
+            }
+            if(j!=n-1){
+                s--;
+            }
+
+     }//End of first for
+ }//End of Second for
+
+if(success){
+    cout<<"yes"<<endl;
+    cout<<s;
+}else{
+    cout<<"NO"<<endl;
+}
+
+
+}
+
+int main(){
+char park[100][100];
+int n,m,k,s;
+
+// s=initial strength and k is no for check strength
+cout<<"Enter value for m,n, s,and k";
+cin>>m>>n>>k>>s;
+
+    for(int row=0;row<m; row++){
+        for(int col=0;col<n; col++){
+        cin>>park[row][col];
+        }
+        
+    }
+ //   display(park,m,n);
+    magical_park(park,m,n,k,s);
+   // display(park,m,n);
+    return 0;
+}
+
+//Rain Water problem of FAANG
+#include<iostream>
+using namespace std;
+int rainWaterHarwest(int arr[],int n){
+int ans=0; //to calculate final answer
+int left_max=0;// Which stores the current max height of the left side 
+int right_max=0;//Which stores the current max height of the right side
+int left=0;//left pointer
+int right=n-1;//right pointer
+
+    //when they cross each other loop break
+    while(left<right){
+        if(arr[left] < arr[right]){
+            if(arr[left]>left_max){
+                left_max=arr[left]; //update max height of left tower
+            }else{
+                ans +=left_max- arr[left];//adding water with previous stored water
+            }
+            left++;
+        }
+        else{
+            if(arr[right]>right_max){  
+                right_max=arr[right];  //update right max
+            }
+            else{
+                ans +=right_max -arr[right];
+            }
+            right--;
+        }
+    }
+    return ans;
+}
+
+
+int main(){
+     int n;
+     cout<<"Enter no of element in array\n";
+     cin>>n;
+     int arr[1000];
+
+     cout<<"Enter height of tower\n";
+     for(int i=0;i<n;i++){
+         cin>>arr[i];
+     }
+     cout<<"Stored water: \n";
+     cout<<rainWaterHarwest(arr,n);
+}
+
+
+//Problem based on 2-d Array
+
+
+//rotate images 90 degree using stl function and withaout using stl function
+
+
+#include<iostream>
+#include<algorithm>
+using namespace std;
+
+void display(int a[][100],int n){
+
+  for(int i=0;i<n; i++){
+        for(int j=0;j<n; j++){
+        cout<<a[i][j]<<" ";
+        }
+        cout<<endl;      
+    }
+}
+
+void rotate_Stl(int a[][100],int n){
+
+//STL reverse function take first and last point of container
+ for(int i=0; i<n; i++){
+     reverse(a[i],a[i]+n);
+ }
+//Transpose of rotated matrix
+for(int i=0; i<n; i++){
+    for(int j=0; j<n; j++){
+        if(i<j){
+            swap(a[i][j],a[j][i]);
+        }
+    }
+}
+
+
+}
+
+ void rotate(int a[][100],int n){
+
+//rotate 
+    for(int row=0; row<n; row++){
+    int startcol=0;
+    int endcol=n-1;
+        while(startcol<endcol){
+            swap(a[row][startcol],a[row][endcol]);
+                startcol++;
+                endcol--;
+            
+            }
+        }
+//Transpose of rotated matrix
+for(int i=0; i<n; i++){
+    for(int j=0; j<n; j++){
+        if(i<j){
+            swap(a[i][j],a[j][i]);
+        }
+    }
+}
+
+ }
+int main(){
+int arr[100][100];
+int n;
+int val=1;
+cout<<"entetr n";
+cin>>n;
+    for(int i=0;i<n; i++){
+        for(int j=0;j<n; j++){
+        arr[i][j]=val;
+        val=val+1;
+        }
+        
+    }
+    display(arr,n);
+    cout<<endl<<"after rotation of 90 degree anticlockwise"<<endl;
+    rotate_Stl(arr,n);
+    //rotate(arr,n);
+    display(arr,n);
+    return 0;
+}
+
+
+//spiral print of 2-d array row wise
+#include<iostream>
+using namespace std;
+
+    void spiralArr(int a[][1000],int m, int n){
+// take 4 pointetr variable 
+int startrow=0;
+int startcol=0;
+int endrow=m-1;
+int endcol=n-1;
+ while(startrow<=endrow and startcol<=endcol){
+
+
+//print first row
+     for(int i=startcol; i<=endcol; i++)
+     {
+          cout<<a[startrow][i]<<" ";
+     }
+     startrow++;
+//print last column
+     for(int i=startrow;i<=endrow;i++){
+         cout<<a[i][endcol]<<" ";
+     }
+     endcol--;
+
+     //print bottom row
+      for(int i=endcol; i>=startcol;i--){
+          cout<<a[endrow][i]<<" ";
+      }
+      endrow--;
+//print first column
+        for(int i=endrow; i>=startrow; i--){
+            cout<<a[i][startcol]<<" ";
+        }
+            startcol++;
+ }
+
+
+}
+int main(){
+
+    int arr[1000][1000]={0};
+    int m,n;
+    cout<<"Enter m,n";
+    cin>>m>>n;
+    int val=1;
+        for(int row=0; row<=m-1; row++){
+            for(int col=0; col<=n-1; col++){
+            arr[row][col]=val;
+            val=val+1;
+            cout<<arr[row][col]<<" ";
+            }
+            cout<<endl;
+        }
+
+        spiralArr(arr,m,n);
+
+    return 0;
+}
+
+//spiral print anti clock wise or column wise
+#include<iostream>
+#include<algorithm>
+using namespace std;
+
+spiralAnticlock(int a[][1000],int m,int n){
+    startrow=0;
+    startcol=0;
+    endrow=m-1;
+    endrow=n-1;
+    // printing first column
+    for(int i=startrow; i<endrow; i++){
+        cout<<a[i][startcol]<<", ";
+    }
+    cout<<endl;
+}
+
+ int main(){
+     
+     int a[1000][1000]={0};
+     int m,n;
+     cin>>m>>n;
+     for(int row=0; row<m; row++){
+         for(int col=0; col<n; col++){
+             cin>>a[row][col];
+         }
+     }
+        spiralAnticlock(a,n);
+
+ }
+
+//Staircase problem 
+// or finding and element from sorted 2-d array
+
+#include<iostream>
+using namespace std;
+int main(){
+char arr[100][100];
+int n,m,k;
+
+cout<<"Enter value for m,n,k";
+cin>>m>>n>>k;
+
+    for(int row=0;row<m; row++){
+        for(int col=0;col<n; col++){
+        cin>>arr[row][col];
+        }
+        
+    }
+
+ for(int row=0;row<m; row++){
+        for(int col=0;col<n; col++){
+        cout<<arr[row][col]<<" ";
+        }
+        cout<<endl;
+        
+    }
+    return 0;
+}
+
+//Target Sum pair problem 
+//find pair whose sum is equal to given key
+
+#include<iostream>
+#include<iostream>
+#include<algorithm>
+using namespace std;
+int main(){
+    int n,target;
+    cout<<"enter  value of n";
+    cin>>n;
+    int a[1000];
+    cout<<"enter value in array";
+    for(int i=0;i<n;i++){
+        cin>>a[i]; 
+    }
+    sort(a,a+n);
+    cout<<"Enter value of target";
+    cin>>target;
+    int left=0;
+    int right=n-1;
+    while(left<right){
+        if(a[left] + a[right]==target){
+            cout<<a[left]<<" and "<<a[right]<<endl;
+            left++;
+            right--;
+        }
+        else if(a[left] + a[right] > target){
+            right--;
+        }
+        else if(a[left] + a[right] < target){
+            left++;
+        }
+    }
+    return 0;
+}
+
+
+
+//wave print of 2-d array
+
+#include<iostream>
+using namespace std;
+ int main(){
+
+int a[100][100]={0};
+int m,n;
+// int m=3;
+// int n=3;
+ cout<<"Enter m,n";
+ cin>>m>>n;
+int val=1;
+
+for(int row=0; row <=m; row++){
+    
+    for(int col=0; col <n; col++){
+        a[row][col]=val;
+        val=val+1;
+        cout<<a[row][col]<<" ";
+    
+    }
+    cout<<endl;
+}
+//printing wave point
+for(int col=0; col<n; col++){
+    if(col%2==0){
+        //even column top down;
+        for(int row=0; row<m; row++){
+            cout<<a[row][col]<<" ";
+        }
+        cout<<",";
+    }
+    if(col%2!=0){
+        //odd column down top
+        for(int row =m-1; row>=0; row--){
+            cout<<a[row][col]<<" ";
+        }
+        cout<<",";
+    }
+}
+
+
+     return 0;
+ }
+
+
+
+ //wave print of 2-d array column wise
+
+ #include<iostream>
+using namespace std;
+ int main(){
+
+int a[100][100]={0};
+int m,n;
+ cout<<"Enter m,n";
+ cin>>m>>n;
+int val=1;
+cout<<"enter value in 2d array";
+
+for(int row=0; row <m; row++){
+    
+    for(int col=0; col <n; col++){
+        //a[row][col]=val;
+        cin>>a[row][col];
+        //cout<<a[row][col]<<" ";
+    
+    }
+    cout<<endl;
+}
+//printing wave point
+for(int col=0; col<n; col++){
+    if(col%2==0){
+        //even column top down;
+        for(int row=0; row<m; row++){
+            cout<<a[row][col]<<", ";
+        }
+    }
+    if(col%2!=0){
+        //odd column down top
+        for(int row =m-1; row>=0; row--){
+            cout<<a[row][col]<<" ,";
+        }
+    }
+}
+cout<<"END";
+
+     return 0;
+ }
+
+
+
+
+
