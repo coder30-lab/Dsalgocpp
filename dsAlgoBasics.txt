@@ -8,7 +8,7 @@ int binarySearch(int arr[],int r, int key)
 	int right=r-1;
     while (left <= right)
     {
-        int m = (left + right)/2;
+        int m = (left + right)>>1;
 
         // Check if x is present at mid
         if (arr[m] == key)
